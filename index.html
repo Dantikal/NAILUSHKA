@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAILUSHKA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script:wght@700&family=Courier+New&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(135deg, #000000 0%, #1a1a2e 50%, #16213e 100%);
+            overflow: hidden;
+            position: relative;
+            font-family: 'Pacifico', cursive;
+        }
+
+        /* Анимированный градиентный фон */
+        .bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Стиль для текста "NIKUSHA" */
+        .center-text {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem;
+            color: white;
+            text-align: center;
+            letter-spacing: 8px;
+            font-family: 'Dancing Script', cursive;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7),
+                         0 0 20px rgba(255, 255, 255, 0.5),
+                         0 0 30px rgba(255, 105, 180, 0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .center-text span {
+            display: inline-block;
+            animation: bounce 1.5s ease infinite alternate;
+        }
+
+        .center-text span:nth-child(2n) {
+            animation-delay: 0.1s;
+        }
+
+        .center-text span:nth-child(3n) {
+            animation-delay: 0.2s;
+        }
+
+        .center-text span:nth-child(4n) {
+            animation-delay: 0.3s;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(255, 255, 255, 0.7),
+                               0 0 20px rgba(255, 255, 255, 0.5),
+                               0 0 30px rgba(255, 105, 180, 0.3); }
+            to { text-shadow: 0 0 15px rgba(255, 255, 255, 0.8),
+                             0 0 25px rgba(255, 255, 255, 0.6),
+                             0 0 35px rgba(255, 105, 180, 0.5),
+                             0 0 45px rgba(255, 105, 180, 0.4); }
+        }
+
+        /* Стиль для текста песни */
+        .song-text {
+            position: absolute;
+            bottom: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.2rem;
+            color: #f0f8ff !important;
+            text-align: center;
+            max-width: 80%;
+            opacity: 0;
+            display: none;
+            animation: fadeInUp 1.5s forwards;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1.5px;
+            line-height: 1.4;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            padding: 15px 25px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, 20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        @keyframes fadeOutUp {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -20px);
+            }
+        }
+
+        .highlight {
+            color: #87ceeb;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(135, 206, 235, 0.7);
+            animation: highlightPulse 2s infinite;
+        }
+
+        @keyframes highlightPulse {
+            0% { text-shadow: 0 0 10px rgba(135, 206, 235, 0.7); }
+            50% { text-shadow: 0 0 20px rgba(135, 206, 235, 1), 0 0 30px rgba(135, 206, 235, 0.8); }
+            100% { text-shadow: 0 0 10px rgba(135, 206, 235, 0.7); }
+        }
+
+        /* Стили для сердечек */
+        .hearts-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            transform: rotate(-45deg);
+            opacity: 0.9;
+            animation: fall 4s linear infinite;
+            width: 40px;
+            height: 40px;
+            border-radius: 50% 50% 0 0;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.8);
+            z-index: 100;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: inherit;
+        }
+
+        .heart::before {
+            left: 0;
+            top: -50%;
+        }
+
+        .heart::after {
+            left: 50%;
+            top: 0;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(-45deg) scale(0.8);
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) rotate(-45deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Стили для кнопки сердечка */
+        .heart-button {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, #ff6b6b 0%, #ff4757 100%);
+            border: none;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            color: white;
+            font-size: 3rem;
+            text-align: center;
+            line-height: 120px;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(255, 107, 107, 0.7),
+                        inset 0 0 20px rgba(255, 255, 255, 0.3);
+            animation: pulse 1.5s infinite, float 3s ease-in-out infinite;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .heart-button:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 0 40px rgba(255, 107, 107, 0.9),
+                        inset 0 0 25px rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translate(-50%, -50%); }
+            50% { transform: translate(-50%, -55%); }
+            100% { transform: translate(-50%, -50%); }
+        }
+
+        /* Стили для кнопки "ГАВ-ГАВ НАЖИМАЙ" */
+        .button-saldkaya {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.6rem;
+            color: white;
+            background: rgba(173, 216, 230, 0.2);
+            padding: 18px 35px;
+            border: 2px solid lightblue;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: none;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(173, 216, 230, 0.3);
+            z-index: 10;
+        }
+
+        .button-saldkaya:hover {
+            background: rgba(173, 216, 230, 0.4);
+            color: #000;
+            box-shadow: 0 0 30px 8px lightblue;
+            transform: translateX(-50%) scale(1.05);
+            letter-spacing: 2px;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .center-text {
+                font-size: 3rem;
+                top: 25%;
+            }
+            
+            .song-text {
+                font-size: 1.5rem;
+                bottom: 20%;
+            }
+            
+            .heart-button {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5rem;
+                line-height: 100px;
+            }
+            
+            .button-saldkaya {
+                font-size: 1.3rem;
+                padding: 15px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="hearts-container"></div>
+
+    <div class="center-text">
+        <span>N</span>
+        <span>A</span>
+        <span>I</span>
+        <span>L</span>
+        <span>U</span>
+        <span>S</span>
+        <span>H</span>
+        <span>K</span>
+        <span>A</span>
+    </div>
+
+    <button id="playButton" class="heart-button">❤️</button>
+
+    <audio id="music" preload="auto">
+        <source src="muzik/Валентин Стрыкало - Знаешь, Таня.mp3" type="audio/mpeg">
+        Ваш браузер не поддерживает элемент audio.
+    </audio>
+
+    <div class="song-text" id="songText1">Если <span class="highlight">Наиля</span> думает, что я по ней грущу - она права.</div>
+    <div class="song-text" id="songText2">Если <span class="highlight">Наиля</span> думает, что я все упущу - она права.</div>
+    <div class="song-text" id="songText3">Где же взять мне смелость чтоб, чтоб сказать ей пару слов:</div>
+    <div class="song-text" id="songText4">Знаешь, <span class="highlight">Наиля</span>, не передать словами то, как я люблю тебя.</div>
+    <div class="song-text" id="songText5">Между нами такая пропасть, <span class="highlight">Наиля</span>, но я так люблю тебя.</div>
+    <div class="song-text" id="songText6">Не сплю я, потому что мне никак не удается не грустить.</div>
+    <div class="song-text" id="songText7">Я ночью мну подушку, а <span class="highlight">НИКУ</span> мнет другой какой-то тип.</div>
+    <div class="song-text" id="songText8"><span class="highlight">Наиля</span>, <span class="highlight">Наиля</span>... Объясни, как набраться смелости?</div>
+    <div class="song-text" id="songText9">Знаешь, <span class="highlight">Наиля</span>, не передать словами то, как я люблю тебя.</div>
+    <div class="song-text" id="songText10">Между нами такая пропасть, <span class="highlight">Наиля</span>, но я так люблю тебя.</div>
+    <div class="song-text" id="songText11">Я так люблю тебя...</div>
+    <div class="song-text" id="songText12">Две семёрки, девяносто, сто -</div>
+    <div class="song-text" id="songText13">Твой мобильный, он такой простой.</div>
+    <div class="song-text" id="songText14">Просто звоню и дышу, но я когда-то скажу -</div>
+    <div class="song-text" id="songText15">Главные эти слова:</div>
+    <div class="song-text" id="songText16">Знаешь, <span class="highlight">Наиля</span>, не передать словами то, как я люблю тебя.</div>
+    <div class="song-text" id="songText17">Между нами такая пропасть, <span class="highlight">Наиля</span>, но я так люблю тебя.</div>
+    <div class="song-text" id="songText18">Я так люблю тебя...</div>
+
+    <a href="NAILUSHKA.html" class="button-saldkaya" target="_blank">НАЖИМАЙ</a>
+
+    <script>
+        let heartClickCount = 0;
+        let currentAudio = null;
+
+        // Усиленный дождь из сердечек
+        function createEnhancedHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            
+            // Разные размеры сердечек
+            const sizes = [25, 30, 35, 40, 45, 50];
+            const size = sizes[Math.floor(Math.random() * sizes.length)];
+            
+            heart.style.width = size + 'px';
+            heart.style.height = size + 'px';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            
+            // Разные цвета сердечек
+            const colors = [
+                'linear-gradient(45deg, #ff6b6b, #ff8e8e)',
+                'linear-gradient(45deg, #ff9999, #ffcccc)',
+                'linear-gradient(45deg, #ff66cc, #ff99ff)',
+                'linear-gradient(45deg, #ff66aa, #ff88bb)',
+                'linear-gradient(45deg, #ff4444, #ff7777)'
+            ];
+            heart.style.background = colors[Math.floor(Math.random() * colors.length)];
+            
+            document.querySelector('.hearts-container').appendChild(heart);
+            
+            // Удаляем через 5 секунд
+            setTimeout(() => {
+                if (heart.parentNode) {
+                    heart.remove();
+                }
+            }, 5000);
+        }
+
+        // Более частый дождь - сердечко каждые 50ms
+        setInterval(createEnhancedHeart, 50);
+
+        // Сразу создаём 20 сердечек при загрузке
+        window.addEventListener('load', function() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => createEnhancedHeart(), i * 100);
+            }
+        });
+
+        // Обработчик для кнопки "playButton"
+        document.getElementById('playButton').addEventListener('click', function() {
+            heartClickCount++;
+            
+            if (currentAudio && !currentAudio.paused) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+
+            const audio = document.getElementById('music');
+            const songTexts = [
+                document.getElementById('songText1'),
+                document.getElementById('songText2'),
+                document.getElementById('songText3'),
+                document.getElementById('songText4'),
+                document.getElementById('songText5'),
+                document.getElementById('songText6'),
+                document.getElementById('songText7'),
+                document.getElementById('songText8'),
+                document.getElementById('songText9'),
+                document.getElementById('songText10'),
+                document.getElementById('songText11'),
+                document.getElementById('songText12'),
+                document.getElementById('songText13'),
+                document.getElementById('songText14'),
+                document.getElementById('songText15'),
+                document.getElementById('songText16'),
+                document.getElementById('songText17'),
+                document.getElementById('songText18')
+            ];
+
+            currentAudio = audio;
+            audio.play().catch((e) => {
+                console.log("Ошибка воспроизведения: ", e);
+            });
+
+            let songTextIndex = 0;
+
+            function showSongText() {
+                const currentTime = audio.currentTime;
+                const timings = [19, 32, 48, 58, 77, 107, 121, 137, 148, 166, 188, 197, 206, 211, 216, 226, 243, 252];
+
+                if (songTextIndex < songTexts.length) {
+                    const text = songTexts[songTextIndex];
+
+                    if (currentTime >= timings[songTextIndex]) {
+                        if (songTextIndex > 0) {
+                            const previousText = songTexts[songTextIndex - 1];
+                            previousText.style.animation = 'fadeOutUp 1s forwards';
+                        }
+
+                        text.style.display = 'block';
+                        text.style.animation = 'fadeInUp 1.5s forwards';
+                        songTextIndex++;
+                    }
+                }
+            }
+
+            const songTextInterval = setInterval(showSongText, 100);
+
+            setTimeout(() => {
+                document.querySelector('.button-saldkaya').style.display = 'block';
+            }, 90000);
+        });
+    </script>
+</body>
+</html>

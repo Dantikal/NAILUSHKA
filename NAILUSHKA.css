@@ -1,0 +1,487 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Современный анимированный фон */
+        .modern-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%),
+                linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            animation: bgPulse 8s ease-in-out infinite;
+            z-index: -3;
+        }
+
+        @keyframes bgPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Главный заголовок */
+        .main-title {
+            text-align: center;
+            font-size: 4rem;
+            color: #ffffff;
+            margin: 20px 0 30px;
+            text-shadow: 3px 3px 20px rgba(0, 0, 0, 0.7),
+                         0 0 40px rgba(255, 255, 255, 0.5),
+                         0 0 60px rgba(255, 105, 180, 0.4);
+            animation: titleFloat 6s ease-in-out infinite;
+            z-index: 10;
+            width: 100%;
+            padding: 0 20px;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0px) rotate(-1deg); }
+            50% { transform: translateY(-15px) rotate(1deg); }
+        }
+
+        /* Контейнер с поздравлением */
+        .congratulations {
+            text-align: center;
+            margin: 0 0 40px 0;
+            padding: 0 20px;
+            max-width: 900px;
+        }
+
+        .congrat-text {
+            font-size: 2.2rem;
+            color: #ffffff;
+            text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.6);
+            margin-bottom: 20px;
+            font-family: 'Lobster', cursive;
+            animation: textGlow 4s ease-in-out infinite alternate;
+        }
+
+        .programmer-text {
+            font-size: 1.8rem;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+            margin-bottom: 15px;
+            font-family: 'Pacifico', cursive;
+            animation: programmerGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes textGlow {
+            from {
+                text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.6),
+                             0 0 20px rgba(255, 255, 255, 0.4);
+            }
+            to {
+                text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8),
+                             0 0 30px rgba(255, 255, 255, 0.6),
+                             0 0 40px rgba(255, 105, 180, 0.4);
+            }
+        }
+
+        @keyframes programmerGlow {
+            0%, 100% {
+                text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7),
+                             0 0 20px rgba(255, 235, 59, 0.5);
+                transform: scale(1);
+            }
+            50% {
+                text-shadow: 2px 2px 18px rgba(0, 0, 0, 0.8),
+                             0 0 30px rgba(255, 235, 59, 0.7),
+                             0 0 45px rgba(255, 235, 59, 0.5);
+                transform: scale(1.05);
+            }
+        }
+
+        /* Контейнер рулетки */
+        .roulette-container {
+            position: relative;
+            width: 100vw;
+            height: 500px;
+            margin: 0;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-top: 2px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Бегущая лента с видео */
+        .video-track {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            animation: scrollRoulette 40s linear infinite;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        @keyframes scrollRoulette {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-350px * 8));
+            }
+        }
+
+        .video-track.fast {
+            animation: scrollRoulette 20s linear infinite;
+        }
+
+        .video-track.slow {
+            animation: scrollRoulette 80s linear infinite;
+        }
+
+        .video-track.reverse {
+            animation: scrollRoulette 40s linear infinite reverse;
+        }
+
+        /* Элементы видео */
+        .video-item {
+            flex: 0 0 350px;
+            height: 380px;
+            margin: 0 15px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 3px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.3),
+                0 0 25px rgba(255, 255, 255, 0.2),
+                0 0 45px rgba(255, 105, 180, 0.3);
+            animation: itemFloat 6s ease-in-out infinite;
+        }
+
+        .video-item:nth-child(odd) {
+            animation-delay: 0s;
+        }
+
+        .video-item:nth-child(even) {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes itemFloat {
+            0%, 100% { 
+                transform: translateY(0px) rotateX(0deg); 
+            }
+            50% { 
+                transform: translateY(-15px) rotateX(5deg); 
+            }
+        }
+
+        .video-item:hover {
+            transform: scale(1.12) translateY(-10px) rotateY(5deg);
+            border-color: #ff69b4;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(255, 255, 255, 0.4),
+                0 0 70px rgba(255, 105, 180, 0.6);
+            z-index: 10;
+        }
+
+        .video-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .video-item:hover video {
+            transform: scale(1.1);
+        }
+
+        /* Элементы управления */
+        .controls {
+            position: absolute;
+            bottom: -90px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 20;
+        }
+
+        .control-btn {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.2) 0%, 
+                rgba(255, 255, 255, 0.1) 100%);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-family: 'Pacifico', cursive;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .control-btn:hover {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.3) 0%, 
+                rgba(255, 255, 255, 0.2) 100%);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Кнопка паузы */
+        .pause-btn {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.2) 0%, 
+                rgba(255, 255, 255, 0.1) 100%);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-family: 'Pacifico', cursive;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(15px);
+            z-index: 25;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Индикатор */
+        .status-indicator {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Футер с контактами */
+        .footer {
+            margin-top: 120px;
+            text-align: center;
+            padding: 30px 20px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border-top: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            padding: 12px 25px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .telegram { color: #0088cc; }
+        .tiktok { color: #ff0050; }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            margin-top: 15px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Улучшенные сердечки */
+        .hearts-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            transform: rotate(-45deg);
+            opacity: 0;
+            animation: magicalFall 8s ease-in infinite;
+            border-radius: 50% 50% 0 0;
+            box-shadow: 
+                0 0 30px rgba(255, 107, 107, 0.9),
+                0 0 50px rgba(255, 107, 107, 0.6);
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: inherit;
+        }
+
+        .heart::before {
+            left: 0;
+            top: -50%;
+        }
+
+        .heart::after {
+            left: 50%;
+            top: 0;
+        }
+
+        @keyframes magicalFall {
+            0% {
+                transform: translateY(-100px) rotate(-45deg) scale(0.3);
+                opacity: 0;
+            }
+            10% { opacity: 0.8; }
+            50% { opacity: 1; }
+            90% { opacity: 0.3; }
+            100% {
+                transform: translateY(100vh) rotate(-45deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Стиль для текста */
+        .love-text {
+            position: absolute;
+            font-family: 'Lobster', cursive;
+            font-size: 2rem;
+            color: #FF69B4;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.8);
+            opacity: 0;
+            animation: textFloat 8s ease-in-out forwards;
+            padding: 15px 25px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            z-index: 5;
+        }
+
+        @keyframes textFloat {
+            0% { 
+                opacity: 0; 
+                transform: translateY(60px) scale(0.8);
+            }
+            20% { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+            }
+            80% { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+            }
+            100% { 
+                opacity: 0; 
+                transform: translateY(-60px) scale(0.8);
+            }
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.8rem;
+            }
+            
+            .congrat-text {
+                font-size: 1.8rem;
+            }
+            
+            .programmer-text {
+                font-size: 1.5rem;
+            }
+            
+            .roulette-container {
+                height: 350px;
+            }
+            
+            .video-item {
+                flex: 0 0 280px;
+                height: 300px;
+            }
+            
+            .social-links {
+                gap: 20px;
+            }
+            
+            .social-link {
+                font-size: 1.1rem;
+                padding: 10px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 2.2rem;
+            }
+            
+            .congrat-text {
+                font-size: 1.5rem;
+            }
+            
+            .programmer-text {
+                font-size: 1.3rem;
+            }
+            
+            .roulette-container {
+                height: 280px;
+            }
+            
+            .video-item {
+                flex: 0 0 220px;
+                height: 240px;
+            }
+            
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+        }
